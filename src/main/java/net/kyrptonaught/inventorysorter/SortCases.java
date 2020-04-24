@@ -4,6 +4,8 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -55,7 +57,13 @@ public class SortCases {
             if (enchantID == null) continue;
             Enchantment enchant = Registry.ENCHANTMENT.get(enchantID);
             if (enchant == null) continue;
-            names.add(enchant.getName(enchants.getCompound(i).getInt("lvl")).asFormattedString());
+
+            Text enchantmentText = enchant.getName(enchants.getCompound(i).getInt("lvl"));
+            String textColorFormatCode = enchantmentText.getStyle().getColor().toString();
+            String enchantmentName = enchantmentText.getString();
+            String formattedEnchantmentName = textColorFormatCode + enchantmentName + Formatting.RESET.toString();
+
+            names.add(formattedEnchantmentName);
         }
         Collections.sort(names);
         for (String enchant : names) {

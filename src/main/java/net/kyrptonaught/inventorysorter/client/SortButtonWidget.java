@@ -7,6 +7,8 @@ import net.kyrptonaught.inventorysorter.InventorySortPacket;
 import net.kyrptonaught.inventorysorter.InventorySorterMod;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.glfw.GLFW;
@@ -17,7 +19,7 @@ public class SortButtonWidget extends TexturedButtonWidget {
     private boolean playerInv;
 
     public SortButtonWidget(int int_1, int int_2, boolean playerInv) {
-        super(int_1, int_2, 10, 9, 0, 0, 19, texture, 20, 37, null, "");
+        super(int_1, int_2, 10, 9, 0, 0, 19, texture, 20, 37, null, LiteralText.field_24366);
         this.playerInv = playerInv;
     }
 
@@ -31,21 +33,21 @@ public class SortButtonWidget extends TexturedButtonWidget {
     }
 
     @Override
-    public void renderButton(int int_1, int int_2, float float_1) {
+    public void renderButton(MatrixStack matrixStack, int i, int j, float f) {
         RenderSystem.pushMatrix();
-        MinecraftClient minecraftClient_1 = MinecraftClient.getInstance();
-        minecraftClient_1.getTextureManager().bindTexture(texture);
+        MinecraftClient minecraftClient = MinecraftClient.getInstance();
+        minecraftClient.getTextureManager().bindTexture(texture);
         RenderSystem.scalef(.5f, .5f, 1);
         RenderSystem.translatef(this.x, this.y, 0);
-        drawTexture(this.x, this.y, 0, this.isHovered() ? 19 : 0, 20, 18, 20, 37);
-        this.renderToolTip(int_1, int_2);
+        drawTexture(matrixStack, this.x, this.y, 0, this.isHovered() ? 19 : 0, 20, 18, 20, 37);
+        this.renderToolTip(matrixStack, i, j);
         RenderSystem.disableLighting();
         RenderSystem.popMatrix();
     }
 
     @Override
-    public void renderToolTip(int x, int y) {
+    public void renderToolTip(MatrixStack matrixStack, int x, int y) {
         if (InventorySorterMod.getConfig().displayTooltip && this.isHovered())
-            MinecraftClient.getInstance().currentScreen.renderTooltip("Sort by: " + StringUtils.capitalize(InventorySorterMod.getConfig().sortType.toString().toLowerCase()), x, y);
+            MinecraftClient.getInstance().currentScreen.renderTooltip(matrixStack, new LiteralText("Sort by: " + StringUtils.capitalize(InventorySorterMod.getConfig().sortType.toString().toLowerCase())), x, y);
     }
 }

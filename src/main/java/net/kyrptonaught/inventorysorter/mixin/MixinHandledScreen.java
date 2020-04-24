@@ -7,6 +7,7 @@ import net.kyrptonaught.inventorysorter.client.SortButtonWidget;
 import net.kyrptonaught.inventorysorter.client.SortableContainerScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Final;
@@ -66,7 +67,7 @@ public abstract class MixinHandledScreen extends Screen implements SortableConta
     }
 
     @Inject(method = "render", at = @At("TAIL"))
-    private void invsort$render(int int_1, int int_2, float float_1, CallbackInfo callbackinfo) {
+    private void invsort$render(MatrixStack matrixStack, int i, int j, float f, CallbackInfo callbackInfo) {
         if (invsort$SortBtn != null)
             invsort$SortBtn.x = this.x + this.backgroundWidth - 20;
     }
