@@ -29,8 +29,9 @@ public class SortCases {
                 return Registry.ITEM.getId(item).getNamespace() + itemName;
             case NAME:
                 if (stack.hasCustomName()) return stack.getName() + itemName;
+            default:
+                return itemName;
         }
-        return itemName;
     }
 
     private static String specialCases(ItemStack stack) {
