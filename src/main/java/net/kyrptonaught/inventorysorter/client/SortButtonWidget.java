@@ -19,7 +19,7 @@ public class SortButtonWidget extends TexturedButtonWidget {
     private boolean playerInv;
 
     public SortButtonWidget(int int_1, int int_2, boolean playerInv) {
-        super(int_1, int_2, 10, 9, 0, 0, 19, texture, 20, 37, null, LiteralText.field_24366);
+        super(int_1, int_2, 10, 9, 0, 0, 19, texture, 20, 37, null, LiteralText.EMPTY);
         this.playerInv = playerInv;
     }
 
